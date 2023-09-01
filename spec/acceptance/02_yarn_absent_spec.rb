@@ -7,7 +7,7 @@ describe 'removing yarn' do
         repo_url_suffix => '6.x',
       }
 
-      if $::osfamily == 'Debian' and $::operatingsystemrelease == '7.3' {
+      if $facts['os']['family'] == 'Debian' and $::operatingsystemrelease == '7.3' {
         class { 'yarn':
           manage_repo    => false,
           install_method => 'npm',
@@ -15,7 +15,7 @@ describe 'removing yarn' do
           package_ensure => 'absent',
         }
       }
-      elsif $::osfamily == 'Debian' and $::operatingsystemrelease == '7.8' {
+      elsif $facts['os']['family'] == 'Debian' and $::operatingsystemrelease == '7.8' {
         class { 'yarn':
           manage_repo    => false,
           install_method => 'source',
@@ -28,7 +28,7 @@ describe 'removing yarn' do
           package_ensure => 'absent',
         }
 
-        if $::osfamily == 'RedHat' and $::operatingsystemrelease =~ /^5\.(\d+)/ {
+        if $facts['os']['family'] == 'RedHat' and $::operatingsystemrelease =~ /^5\.(\d+)/ {
           class { 'epel': }
           Class['epel'] -> Class['nodejs'] -> Class['yarn']
         }

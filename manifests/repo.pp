@@ -10,7 +10,7 @@ class yarn::repo (
 
   if $manage_repo {
 
-    case $::osfamily {
+    case $facts['os']['family'] {
       'Debian': {
         include apt
 
@@ -41,7 +41,7 @@ class yarn::repo (
       }
 
       default: {
-        fail("${::module_name} can not manage repo on ${::osfamily}/${::operatingsystem}.")
+        fail("${::module_name} can not manage repo on ${facts['os']['family']}/${::operatingsystem}.")
       }
     }
 

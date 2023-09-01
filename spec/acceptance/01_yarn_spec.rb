@@ -7,14 +7,14 @@ describe 'installing yarn' do
         repo_url_suffix => '6.x',
       }
 
-      if $::osfamily == 'Debian' and $::operatingsystemrelease == '7.3' {
+      if $facts['os']['family'] == 'Debian' and $::operatingsystemrelease == '7.3' {
         class { 'yarn':
           manage_repo    => false,
           install_method => 'npm',
           require        => Class['nodejs'],
         }
       }
-      elsif $::osfamily == 'Debian' and $::operatingsystemrelease == '7.8' {
+      elsif $facts['os']['family'] == 'Debian' and $::operatingsystemrelease == '7.8' {
         class { 'yarn':
           manage_repo    => false,
           install_method => 'source',
@@ -26,7 +26,7 @@ describe 'installing yarn' do
 
         Package['nodejs'] -> Package['yarn']
 
-        if $::osfamily == 'RedHat' and $::operatingsystemrelease =~ /^5\.(\d+)/ {
+        if $facts['os']['family'] == 'RedHat' and $::operatingsystemrelease =~ /^5\.(\d+)/ {
           class { 'epel': }
           Class['epel'] -> Class['nodejs'] -> Class['yarn']
         }

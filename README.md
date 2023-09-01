@@ -82,7 +82,7 @@ class { 'yarn': }
 
 Package['nodejs'] -> Package['yarn']
 
-if $::osfamily == 'RedHat' and $::operatingsystemrelease =~ /^5\.(\d+)/ {
+if $facts['os']['family'] == 'RedHat' and $::operatingsystemrelease =~ /^5\.(\d+)/ {
   class { 'epel': }
   Class['epel'] -> Class['nodejs'] -> Class['yarn']
 }
