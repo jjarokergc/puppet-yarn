@@ -23,19 +23,17 @@
 #
 class yarn (
   Boolean $manage_repo,
-  Enum['npm', 'source', 'package'] $install_method,
+  Enum['nvm','npm', 'source', 'package'] $install_method,
   Enum['present','absent'] $package_ensure = 'present',
   String[1] $package_name = 'yarn',
   Stdlib::Absolutepath $source_install_dir = '/opt',
   Stdlib::Absolutepath $symbolic_link = '/usr/local/bin/yarn',
   String[1] $user = 'root',
   Stdlib::HTTPUrl $source_url = 'https://yarnpkg.com/latest.tar.gz',
-)  {
-
+) {
   contain yarn::repo
   contain yarn::install
 
   Class['yarn::repo']
   ~> Class['yarn::install']
-
 }
