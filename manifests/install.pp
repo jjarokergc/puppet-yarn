@@ -97,8 +97,9 @@ class yarn::install (
       exec { 'YARN: install via nvm':
         user        => $user,
         cwd         => $user_home,
-        command     => "bash -s npm install -g ${package_name}",
-        unless      => "bash -s npm list -depth 0 -g ${package_name}",
+        command     => ". ${nvm_dir}/nvm.sh && npm install -g ${package_name}",
+        unless      => ". ${nvm_dir}/nvm.sh && npm list -depth 0 -g ${package_name}",
+        provider    => shell,
         path        => ['/bin', '/usr/bin'],
         environment => [
           "NVM_DIR=${nvm_dir}",
